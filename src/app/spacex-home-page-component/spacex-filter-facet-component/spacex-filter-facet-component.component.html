@@ -1,0 +1,23 @@
+<div class="spacex-filer-container">
+    <h4>Filters</h4>
+    <div class="filter-years">
+        <p>Launch Year</p>
+        <div class="button-group" *ngFor="let launchYear of launchYears">
+            <button>{{ launchYear }}</button>
+        </div>
+    </div>
+    <div class="filter-launch">
+        <p>Successful Launch</p>
+        <div class="button-group">
+            <button>True</button>
+            <button>False</button>
+        </div>
+    </div>
+    <div class="filter-landing">
+        <p>Successful Landing</p>
+        <div class="button-group">
+            <button>True</button>
+            <button>False</button>
+        </div>
+    </div>
+</div>
