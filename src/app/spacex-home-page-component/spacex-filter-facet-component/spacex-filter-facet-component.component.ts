@@ -1,53 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FilterProps } from '../Types/filter-props';
 
 @Component({
   selector: 'app-spacex-filter-facet-component',
   templateUrl: './spacex-filter-facet-component.component.html',
   styleUrls: ['./spacex-filter-facet-component.component.scss'],
 })
-export class SpacexFilterFacetComponentComponent implements OnInit {
+export class SpacexFilterFacetComponentComponent {
 
   @Input() launchYears = [];
   @Output()
-  filterEmitter: EventEmitter<{
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-
-  }> = new EventEmitter<{
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-
-  }>();
-  filterArr = [];
-  filterProps!: {
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-
-  };
+  filterEmitter: EventEmitter<FilterProps> = new EventEmitter<FilterProps>();
+  filterProps: any = {};
   constructor() { }
-  ngOnInit(): void {
-    this.filterProps = {
-      yearLaunch: '',
-      successFullLaunch: '',
-      successFullLand: ''
-    };
-  }
 
-  yearFilter(selectedFilter: string): void {
-    this.filterProps.yearLaunch = this.filterProps.yearLaunch !== selectedFilter ? selectedFilter : '';
-    this.filterEmitter.emit(this.filterProps);
-  }
-
-  SuccessfulLaunchFilter(selectedFilter: string): void {
-    this.filterProps.successFullLaunch = this.filterProps.successFullLaunch !== selectedFilter ? selectedFilter : '';
-    this.filterEmitter.emit(this.filterProps);
-  }
-
-  SuccessfulLandFilter(selectedFilter: string): void {
-    this.filterProps.successFullLand = this.filterProps.successFullLand !== selectedFilter ? selectedFilter : '';
+  applyFilters(category: string, selectedFilter: string): void {
+    this.filterProps.limit = '100';
+    if (this.filterProps[category] !== selectedFilter) {
+      this.filterProps[category] = selectedFilter;
+    } else {
+      delete this.filterProps[category];
+    }
     this.filterEmitter.emit(this.filterProps);
   }
 

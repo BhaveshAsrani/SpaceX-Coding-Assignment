@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoaderComponentComponent } from '../loader-component/loader-component.component';
 import { SpacexFilterServiceService } from '../spacex-filter-service.service';
+import { FilterProps } from './Types/filter-props';
 
 @Component({
   selector: 'app-spacex-home-page-component',
@@ -9,40 +10,32 @@ import { SpacexFilterServiceService } from '../spacex-filter-service.service';
   styleUrls: ['./spacex-home-page-component.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SpacexHomePageComponentComponent implements OnInit {
+export class SpacexHomePageComponentComponent implements OnInit  {
   public launchData: any = [];
-  public launchYears: any = [];
+  public launchYears: string[] = [];
   constructor(
     private readonly spacexFilterServiceService: SpacexFilterServiceService,
     private readonly router: Router
   ) { }
 
   isResponseEmpty = false;
-  filterProps!: {
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-  };
+  filterProps!: FilterProps;
 
   @ViewChild(LoaderComponentComponent)
   loaderComponent = new LoaderComponentComponent();
   ngOnInit(): void {
     this.filterProps = {
-      yearLaunch: '',
-      successFullLaunch: '',
-      successFullLand: ''
+      limit: '100',
+      launch_year: '',
+      launch_success: '',
+      land_success: ''
     };
     this.getSpaceXLaunchCardResults('initialCall', this.filterProps);
   }
 
-  getSpaceXLaunchCardResults(callType: string, filterObj: {
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-
-  }): void {
+  getSpaceXLaunchCardResults(callType: string, filterObj: FilterProps): void {
     this.loaderComponent.showLoader();
-    const requestObj = this.getRequestPayload(filterObj);
+    const requestObj = callType === 'initialCall' ? {limit: '100'} : filterObj;
     this.router.navigate([], {
       queryParams: requestObj
     });
@@ -60,36 +53,12 @@ export class SpacexHomePageComponentComponent implements OnInit {
       }
     );
   }
-  getRequestPayload(filterObj: {
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-
-  }): object {
-    const requestObj: any = {};
-    requestObj.limit = '100';
-    if (filterObj.successFullLaunch) {
-      requestObj.launch_success = filterObj.successFullLaunch;
-    }
-    if (filterObj.yearLaunch) {
-      requestObj.launch_year = filterObj.yearLaunch;
-    }
-    if (filterObj.successFullLand) {
-      requestObj.land_success = filterObj.successFullLand;
-    }
-    return requestObj;
-  }
   populateLaunchYearsArray(): void {
     this.launchData.forEach((launchEntry: any) => this.launchYears.push(launchEntry.launch_year));
     this.launchYears = Array.from(new Set(this.launchYears));
   }
 
-  applyFilters(filterObj: {
-    yearLaunch: string;
-    successFullLaunch: string;
-    successFullLand: string;
-
-  }): void {
+  applyFilters(filterObj: FilterProps): void {
     this.getSpaceXLaunchCardResults('', filterObj);
   }
 }
