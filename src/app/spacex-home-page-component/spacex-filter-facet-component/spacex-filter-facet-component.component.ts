@@ -8,7 +8,7 @@ import { FilterProps } from '../Types/filter-props';
 })
 export class SpacexFilterFacetComponentComponent {
 
-  @Input() launchYears = [];
+  @Input() launchYears: string[] = [];
   @Output()
   filterEmitter: EventEmitter<FilterProps> = new EventEmitter<FilterProps>();
   filterProps: any = {};
