@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoaderComponentComponent } from '../loader-component/loader-component.component';
 import { SpacexFilterServiceService } from '../spacex-filter-service.service';
 
@@ -12,7 +13,8 @@ export class SpacexHomePageComponentComponent implements OnInit {
   public launchData: any = [];
   public launchYears: any = [];
   constructor(
-    private readonly spacexFilterServiceService: SpacexFilterServiceService
+    private readonly spacexFilterServiceService: SpacexFilterServiceService,
+    private readonly router: Router
   ) { }
 
   isResponseEmpty = false;
@@ -41,6 +43,9 @@ export class SpacexHomePageComponentComponent implements OnInit {
   }): void {
     this.loaderComponent.showLoader();
     const requestObj = this.getRequestPayload(filterObj);
+    this.router.navigate([], {
+      queryParams: requestObj
+    });
     this.spacexFilterServiceService.fetchSpacexLaunchCards(requestObj).subscribe(
       (response) => {
         this.launchData = response;
@@ -52,7 +57,6 @@ export class SpacexHomePageComponentComponent implements OnInit {
       },
       (error) => {
         this.loaderComponent.dismissLoader();
-        console.log(error);
       }
     );
   }
