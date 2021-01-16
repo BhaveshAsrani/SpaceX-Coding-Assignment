@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-spacex-launch-card-component',
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SpacexLaunchCardComponentComponent implements OnInit {
 
-  @Input() cardData: any;
+  @Input() launchData: any;
   constructor() { }
 
   ngOnInit(): void {

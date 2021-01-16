@@ -1,0 +1,45 @@
+@import "../../styles/base/colors";
+@import "../../styles/base/variables";
+
+.spacex-filer-container {
+  background: white;
+  border-radius: 2%;
+  padding: 16px;
+
+  .filter {
+    .launch-text {
+      text-align: center;
+    }
+    .separator {
+      width: 100px;
+      border-bottom: 2px solid $black;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+  .button-group {
+    .btn-primary {
+      padding: 8px 0;
+      background-color: $btn-green;
+      border-radius: 6px;
+      width: 40%;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $bg-green-active;
+      }
+      &.active {
+        background-color: $bg-green-active;
+      }
+    }
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    .button-group {
+      .btn-primary {
+        width: 40%;
+      }
+    }
+  }
+}

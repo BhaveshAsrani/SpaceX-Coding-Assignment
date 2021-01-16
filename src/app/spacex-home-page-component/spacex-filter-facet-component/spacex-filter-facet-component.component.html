@@ -1,23 +1,26 @@
 <div class="spacex-filer-container">
-    <h4>Filters</h4>
-    <div class="filter-years">
-        <p>Launch Year</p>
-        <div class="button-group" *ngFor="let launchYear of launchYears">
-            <button>{{ launchYear }}</button>
+    <h4 class="my-xs-0">Filters</h4>
+    <div class="filter filter-years d-flex justify-content-center flex-column">
+        <p class="launch-text">Launch Year</p>
+        <span class="separator mb-xs-3"></span>
+        <div class="button-group d-flex justify-content-between flex-wrap">
+            <div role="button" [ngClass]="{'active': filterProps.yearLaunch === launchYear}" class="btn-primary mb-xs-3" (click)="yearFilter(launchYear)" *ngFor="let launchYear of launchYears">{{ launchYear }}</div>
         </div>
     </div>
-    <div class="filter-launch">
-        <p>Successful Launch</p>
-        <div class="button-group">
-            <button>True</button>
-            <button>False</button>
+    <div class="filter filter-launch">
+        <p class="launch-text">Successful Launch</p>
+        <span class="separator mb-xs-3"></span>
+        <div class="button-group d-flex justify-content-between">
+            <div role="button" [ngClass]="{'active': filterProps.successFullLaunch === 'true'}" class="btn-primary mb-xs-3" (click)="SuccessfulLaunchFilter('true')">True</div>
+            <div role="button" [ngClass]="{'active': filterProps.successFullLaunch === 'false'}" class="btn-primary mb-xs-3" (click)="SuccessfulLaunchFilter('false')">False</div>
         </div>
     </div>
-    <div class="filter-landing">
-        <p>Successful Landing</p>
-        <div class="button-group">
-            <button>True</button>
-            <button>False</button>
+    <div class="filter filter-landing">
+        <p class="launch-text">Successful Landing</p>
+        <span class="separator mb-xs-3"></span>
+        <div class="button-group d-flex justify-content-between">
+            <div role="button" [ngClass]="{'active': filterProps.successFullLand === 'true'}" class="btn-primary mb-xs-3" (click)="SuccessfulLandFilter('true')">True</div>
+            <div role="button" [ngClass]="{'active': filterProps.successFullLand === 'false'}" class="btn-primary mb-xs-3" (click)="SuccessfulLandFilter('false')">False</div>
         </div>
     </div>
 </div>

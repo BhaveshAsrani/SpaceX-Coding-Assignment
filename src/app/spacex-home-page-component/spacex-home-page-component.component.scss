@@ -1,0 +1,44 @@
+@import "../styles/base/colors";
+@import "../styles/base/flexbox-styles";
+@import "../styles/base/spacer";
+
+.spacex-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  .spacex-container-body {
+    .spacex-filter-facets {
+      width: 20%;
+    }
+    .spacex-launch-card-results {
+      width: 80%;
+      .error-msg {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    .spacex-container-body {
+      flex-direction: row;
+      .spacex-filter-facets {
+        width: 30%;
+      }
+      .spacex-launch-card-results {
+        width: 70%;
+      }
+    }
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    .spacex-container-body {
+      flex-direction: column;
+      .spacex-filter-facets {
+        width: 100%;
+      }
+      .spacex-launch-card-results {
+        margin-top: 20px;
+        width: 100%;
+      }
+    }
+  }
+}

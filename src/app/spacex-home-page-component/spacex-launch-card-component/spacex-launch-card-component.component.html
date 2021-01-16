@@ -1,8 +1,33 @@
-<div class="spacex-launch-cards-container">
-    <div class="launch-card-image">
-        <img class="card-img" [src]="cardData.links.mission_patch_small" alt="" />
-    </div>
-    <div class="launch-card-details">
-        {{ cardData.details }}
+<div class="spacex-launch-card d-flex flex-wrap ml-sm-3">
+    <div class="spacex-launch-cards-container mb-xs-3 mr-sm-3" *ngFor="let cardData of launchData; let cardIndex = index">
+        <div class="launch-card-image">
+            <img class="card-img" [src]="cardData.links.mission_patch_small" [alt]="cardData.mission_name" />
+        </div>
+        <div class="launch-card-details">
+            <p class="mission-details">
+                <span class="mission-name" *ngIf="cardData.mission_name">{{ cardData.mission_name }}</span>
+                <span class="flight-number ml-xs-1" *ngIf="cardData.flight_number">#{{ cardData.flight_number }}</span>
+            </p>
+            <div class="mission-ids my-xs-2" *ngIf="cardData.mission_id.length">
+                <p class="mission-prop my-xs-0">Mission ids:</p>
+                <ul class="mt-xs-1">
+                    <li *ngFor="let missionId of cardData.mission_id">
+                        {{ missionId }}
+                    </li>
+                </ul>
+            </div>
+            <div class="launch-year my-xs-2">
+                <span class="mission-prop">Launch year:</span>
+                <span class="ml-xs-1">{{ cardData.launch_year }}</span>
+            </div>
+            <div class="launch-successful my-xs-2">
+                <span class="mission-prop">Successful Launch:</span>
+                <span class="ml-xs-1">{{ cardData.launch_success }}</span>
+            </div>
+            <div class="land-successful mt-xs-2">
+                <span class="mission-prop">Successful Landing:</span>
+                <span class="ml-xs-1">{{ cardData.launch_landing }}</span>
+            </div>
+        </div>
     </div>
 </div>

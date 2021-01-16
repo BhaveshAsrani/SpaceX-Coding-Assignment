@@ -1,17 +1,22 @@
 <div class="spacex-container">
-    <h3>SpaceX Launch Programs</h3>
-    <div class="spacex-container-body">
+    <app-loader-component></app-loader-component>
+    <h3 class="mt-xs-0">SpaceX Launch Programs</h3>
+    <div class="spacex-container-body d-flex justify-content-center">
         <div class="spacex-filter-facets">
             <app-spacex-filter-facet-component
                 [launchYears]="launchYears"
+                (filterEmitter)="applyFilters($event)"
             ></app-spacex-filter-facet-component>
         </div>
-        <div class="spacex-launch-card-results">
-            <div *ngFor="let cardData of launchData">
+        <div class="spacex-launch-card-results d-flex flex-wrap">
+            <!-- <div class="spacex-launch-card d-flex" *ngFor="let cardData of launchData"> -->
                 <app-spacex-launch-card-component
-                    [cardData]="cardData"
+                    style="width:100%"
+                    *ngIf="!isResponseEmpty"
+                    [launchData]="launchData"
                 ></app-spacex-launch-card-component>
-            </div>
+            <!-- </div> -->
+            <h2 class="error-msg my-xs-0 d-flex justify-content-center align-items-center w-100" *ngIf="isResponseEmpty">NO DATA FOUND!!</h2>
         </div>
     </div>
 </div>

@@ -12,12 +12,10 @@ export class SpacexFilterServiceService {
     private readonly http: HttpClient
   ) { }
 
-  fetchSpacexLaunchCards(): Observable<any> {
+  fetchSpacexLaunchCards(requestObj: any): Observable<any> {
     const httpOptions = {
       headers: this.HTTP_HEADERS,
-      params: {
-        limit: '100'
-      },
+      params: requestObj,
     };
     return this.http.get<any>(this.spaceXAllLaunchesURL, httpOptions);
   }
