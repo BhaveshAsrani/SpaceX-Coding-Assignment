@@ -14,6 +14,11 @@ export class SpacexFilterFacetComponentComponent {
   filterProps: any = {};
   constructor() { }
 
+  /**
+   * This method is invoked when the user selects/de-selects any filter from filter facet.
+   * @param category - launch_year or launch_success or land_success.
+   * @param selectedFilter - Value of the selected filter.
+   */
   applyFilters(category: string, selectedFilter: string): void {
     this.filterProps.limit = '100';
     if (this.filterProps[category] !== selectedFilter) {
@@ -23,5 +28,4 @@ export class SpacexFilterFacetComponentComponent {
     }
     this.filterEmitter.emit(this.filterProps);
   }
-
 }

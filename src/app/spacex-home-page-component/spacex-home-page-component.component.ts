@@ -23,6 +23,11 @@ export class SpacexHomePageComponentComponent implements OnInit, AfterViewInit  
 
   @ViewChild(LoaderComponentComponent)
   loaderComponent = new LoaderComponentComponent();
+
+  /**
+   * This life cycle is invoke on load of this component.
+   * It initializes the filter properties.
+   */
   ngOnInit(): void {
     this.filterProps = {
       limit: '100',
@@ -32,10 +37,19 @@ export class SpacexHomePageComponentComponent implements OnInit, AfterViewInit  
     };
   }
 
+  /**
+   * This life cycle is invoked after all the child components are loaded.
+   * It is used to call the launch API.
+   */
   ngAfterViewInit(): void {
     this.getSpaceXLaunchCardResults('initialCall', this.filterProps);
   }
 
+  /**
+   * This method is used to invoke the launch API service and fetch the launch data response.
+   * @param callType - initial or ''
+   * @param filterObj - initial or applied filters(limit, launch_year, launch_success and land_success)
+   */
   getSpaceXLaunchCardResults(callType: string, filterObj: FilterProps): void {
     this.loaderComponent.showLoader();
     const requestObj = callType === 'initialCall' ? {limit: '100'} : filterObj;
@@ -57,11 +71,19 @@ export class SpacexHomePageComponentComponent implements OnInit, AfterViewInit  
       }
     );
   }
+
+  /**
+   * This method is used to populate the launch years array to show the year-wise filter options.
+   */
   populateLaunchYearsArray(): void {
     this.launchData.forEach((launchEntry: any) => this.launchYears.push(launchEntry.launch_year));
     this.launchYears = Array.from(new Set(this.launchYears));
   }
 
+  /**
+   * This method is invoke when any filter is selected/de-selected. It furhter calls the launch API.
+   * @param filterObj - applied filters(limit, launch_year, launch_success and land_success)
+   */
   applyFilters(filterObj: FilterProps): void {
     this.getSpaceXLaunchCardResults('', filterObj);
   }
