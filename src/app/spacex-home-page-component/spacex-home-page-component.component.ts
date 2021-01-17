@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoaderComponentComponent } from '../loader-component/loader-component.component';
 import { SpacexFilterServiceService } from '../spacex-filter-service.service';
@@ -10,7 +10,7 @@ import { FilterProps } from './Types/filter-props';
   styleUrls: ['./spacex-home-page-component.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SpacexHomePageComponentComponent implements OnInit  {
+export class SpacexHomePageComponentComponent implements OnInit, AfterViewInit  {
   public launchData: any = [];
   public launchYears: string[] = [];
   constructor(
@@ -30,6 +30,9 @@ export class SpacexHomePageComponentComponent implements OnInit  {
       launch_success: '',
       land_success: ''
     };
+  }
+
+  ngAfterViewInit(): void {
     this.getSpaceXLaunchCardResults('initialCall', this.filterProps);
   }
 

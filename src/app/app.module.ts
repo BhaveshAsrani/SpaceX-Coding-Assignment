@@ -9,6 +9,7 @@ import { SpacexLaunchCardComponentComponent } from './spacex-home-page-component
 import { SpacexPageNotFoundComponentComponent } from './spacex-page-not-found-component/spacex-page-not-found-component.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponentComponent } from './loader-component/loader-component.component';
+import { SpacexHeaderComponentComponent } from './spacex-header-component/spacex-header-component.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoaderComponentComponent } from './loader-component/loader-component.co
     SpacexLaunchCardComponentComponent,
     SpacexPageNotFoundComponentComponent,
     LoaderComponentComponent,
+    SpacexHeaderComponentComponent,
   ],
   imports: [
     BrowserModule,
