@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "spacex-coding-assignment-daea7"
+  },
+  "targets": {
+    "spacex-coding-assignment-daea7": {
+      "hosting": {
+        "spaceXCodingAssignment": [
+          "spacex-coding-assignment-daea7"
+        ]
+      }
+    }
+  }
+}
