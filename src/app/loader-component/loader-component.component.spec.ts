@@ -22,4 +22,17 @@ describe('LoaderComponentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('showLoader', () => {
+    it('shpuld turn on the loader', () => {
+      component.showLoader();
+      expect(component.visible).toBeTruthy();
+    });
+  });
+  describe('dismissLoader', () => {
+    it('shpuld turn off the loader', () => {
+      component.dismissLoader();
+      expect(component.visible).toBeFalsy();
+    });
+  });
 });

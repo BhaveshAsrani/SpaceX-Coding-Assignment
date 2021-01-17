@@ -52,6 +52,7 @@ export class SpacexHomePageComponentComponent implements OnInit, AfterViewInit  
         this.isResponseEmpty = !this.launchData.length;
       },
       (error) => {
+        this.isResponseEmpty = true;
         this.loaderComponent.dismissLoader();
       }
     );
