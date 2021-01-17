@@ -29,6 +29,12 @@
       &:hover {
         background-color: $bg-green-active;
       }
+
+      @media (hover: none) {
+        &:hover {
+          background-color: $btn-green;
+        }
+      }
       &.active {
         background-color: $bg-green-active;
       }
