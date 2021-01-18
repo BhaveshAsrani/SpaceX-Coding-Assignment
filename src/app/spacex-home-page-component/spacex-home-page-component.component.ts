@@ -51,7 +51,10 @@ export class SpacexHomePageComponentComponent implements OnInit, AfterViewInit  
    * @param filterObj - initial or applied filters(limit, launch_year, launch_success and land_success)
    */
   getSpaceXLaunchCardResults(callType: string, filterObj: FilterProps): void {
-    this.loaderComponent.showLoader();
+    // to avoid expressionchangedafterithasbeencheckederror
+    setTimeout(() => {
+      this.loaderComponent.showLoader();
+    });
     const requestObj = callType === 'initialCall' ? {limit: '100'} : filterObj;
     this.router.navigate([], {
       queryParams: requestObj

@@ -10,6 +10,7 @@ import { SpacexPageNotFoundComponentComponent } from './spacex-page-not-found-co
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponentComponent } from './loader-component/loader-component.component';
 import { SpacexHeaderComponentComponent } from './spacex-header-component/spacex-header-component.component';
+import { SpacexFooterComponentComponent } from './spacex-footer-component/spacex-footer-component.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SpacexHeaderComponentComponent } from './spacex-header-component/spacex
     SpacexPageNotFoundComponentComponent,
     LoaderComponentComponent,
     SpacexHeaderComponentComponent,
+    SpacexFooterComponentComponent,
   ],
   imports: [
     BrowserModule,

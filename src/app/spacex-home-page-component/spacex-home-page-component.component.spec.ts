@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { of } from 'rxjs/internal/observable/of';
 import { throwError } from 'rxjs/internal/observable/throwError';
@@ -37,6 +37,7 @@ describe('SpacexHomePageComponentComponent', () => {
     component = fixture.componentInstance;
     spacexFilterServiceService = TestBed.get(SpacexFilterServiceService);
     router = TestBed.get(Router);
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -50,34 +51,20 @@ describe('SpacexHomePageComponentComponent', () => {
     land_success: ''
   };
 
-  describe('OnInit', () => {
-    it('should initialize the filter props', () => {
-      component.ngOnInit();
-      expect(component.filterProps).toEqual(filterProps);
-    });
-  });
-
-  describe('AfterViewInit', () => {
-    it('should initialize the component with the launch data', () => {
-      spyOn(component, 'getSpaceXLaunchCardResults');
-      component.ngAfterViewInit();
-      expect(component.getSpaceXLaunchCardResults).toHaveBeenCalled();
-    });
-  });
-
   describe('getSpaceXLaunchCardResults', () => {
-    it('should invoke the launch API with initial calltype', () => {
+    it('should invoke the launch API with initial calltype',  fakeAsync(() => {
       spyOn(LoaderComponentComponent.prototype, 'showLoader');
       spyOn(LoaderComponentComponent.prototype, 'dismissLoader');
       spyOn(spacexFilterServiceService, 'fetchSpacexLaunchCards').and.returnValue(of(launchDataResponse));
       component.getSpaceXLaunchCardResults('initialCall', filterProps);
+      tick();
       expect(component.launchData).toEqual(launchDataResponse);
       expect(component.isResponseEmpty).toBeFalsy();
       expect(LoaderComponentComponent.prototype.showLoader).toHaveBeenCalled();
       expect(LoaderComponentComponent.prototype.dismissLoader).toHaveBeenCalled();
       expect(spacexFilterServiceService.fetchSpacexLaunchCards).toHaveBeenCalledWith({limit: '100'});
-    });
-    it('should invoke the launch API without initial calltype', () => {
+    }));
+    it('should invoke the launch API without initial calltype', fakeAsync(() => {
       spyOn(LoaderComponentComponent.prototype, 'showLoader');
       spyOn(LoaderComponentComponent.prototype, 'dismissLoader');
       spyOn(spacexFilterServiceService, 'fetchSpacexLaunchCards').and.returnValue(of(launchDataResponse));
@@ -88,14 +75,15 @@ describe('SpacexHomePageComponentComponent', () => {
         land_success: 'true'
       };
       component.getSpaceXLaunchCardResults('', appliedFilterProps);
+      tick();
       expect(component.launchData).toEqual(launchDataResponse);
       expect(component.isResponseEmpty).toBeFalsy();
       expect(LoaderComponentComponent.prototype.showLoader).toHaveBeenCalled();
       expect(LoaderComponentComponent.prototype.dismissLoader).toHaveBeenCalled();
       expect(spacexFilterServiceService.fetchSpacexLaunchCards).toHaveBeenCalledWith(appliedFilterProps);
-    });
+    }));
 
-    it('should invoke the launch API with applied filters and get no response', () => {
+    it('should invoke the launch API with applied filters and get no response', fakeAsync(() => {
       spyOn(LoaderComponentComponent.prototype, 'showLoader');
       spyOn(LoaderComponentComponent.prototype, 'dismissLoader');
       spyOn(spacexFilterServiceService, 'fetchSpacexLaunchCards').and.returnValue(of([]));
@@ -106,14 +94,15 @@ describe('SpacexHomePageComponentComponent', () => {
         land_success: 'true'
       };
       component.getSpaceXLaunchCardResults('', appliedFilterProps);
+      tick();
       expect(component.launchData).toEqual([]);
       expect(component.isResponseEmpty).toBeTruthy();
       expect(LoaderComponentComponent.prototype.showLoader).toHaveBeenCalled();
       expect(LoaderComponentComponent.prototype.dismissLoader).toHaveBeenCalled();
       expect(spacexFilterServiceService.fetchSpacexLaunchCards).toHaveBeenCalledWith(appliedFilterProps);
-    });
+    }));
 
-    it('should invoke the All launch API and throw an error', () => {
+    it('should invoke the All launch API and throw an error', fakeAsync(() => {
       spyOn(LoaderComponentComponent.prototype, 'showLoader');
       spyOn(LoaderComponentComponent.prototype, 'dismissLoader');
       spyOn(spacexFilterServiceService, 'fetchSpacexLaunchCards').and.returnValue( throwError('error') );
@@ -124,11 +113,12 @@ describe('SpacexHomePageComponentComponent', () => {
         land_success: 'true'
       };
       component.getSpaceXLaunchCardResults('', appliedFilterProps);
+      tick();
       expect(component.isResponseEmpty).toBeTruthy();
       expect(LoaderComponentComponent.prototype.showLoader).toHaveBeenCalled();
       expect(LoaderComponentComponent.prototype.dismissLoader).toHaveBeenCalled();
       expect(spacexFilterServiceService.fetchSpacexLaunchCards).toHaveBeenCalledWith(appliedFilterProps);
-    });
+    }));
   });
 
   describe('applyFilters', () => {
